@@ -43,6 +43,25 @@ tflocal apply
 Enter a value: yes
 ...
 ```
+### Check if the bucket and files are in place
+* https://docs.localstack.cloud/integrations/aws-cli/#localstack-aws-cli-awslocal
+
+`pip install awscli-local`
+
+```
+% awslocal s3 ls
+2022-10-30 23:46:05 sample-bucket
+```
+
+```
+% awslocal s3 ls sample-bucket
+                           PRE dir1/
+                           PRE dir2/
+2022-10-30 23:46:07         18 file1.txt
+2022-10-30 23:46:07         21 file2.txt
+2022-10-30 23:46:07        576 file3.txt
+```
+
 
 # Using python search-s3.py script
 ## Python Virtualenv
