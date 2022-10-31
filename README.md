@@ -85,5 +85,18 @@ pip install -r requirements.txt
 
 * Example:
 
-`python search-s3.py -b sample-bucket -s random`
+```
+% python search-s3.py -b sample-bucket -s random
+random string exists in dir1/file2.txt
+Line Number: 2
+Line: random
+
+random string exists in dir2/file2.txt
+Line Number: 2
+Line: random
+
+random string exists in file2.txt
+Line Number: 2
+Line: random
+```
 
