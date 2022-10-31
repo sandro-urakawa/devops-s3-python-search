@@ -8,13 +8,15 @@ def main(argv):
     s3_bucket_name = ''
     substring = ''
     ignore_case = False
+    search_aws = False
     found = 0
     help_text = """usage: python search-s3.py -b|--s3_bucket_name <s3_bucket_name> -s|--substring <substring>
             Optional parameters:
-                -i | --ignore-case"""
+                -i | --ignore-case
+                -a | --aws"""
 
     try:
-        opts, args = getopt.getopt(argv,"hib:s:",["s3_bucket_name=","substring=","ignore-case"])
+        opts, args = getopt.getopt(argv,"hiab:s:",["s3_bucket_name=","substring=","ignore-case","aws"])
     except getopt.GetoptError:
         print(help_text)
         sys.exit(2)
@@ -28,14 +30,20 @@ def main(argv):
              substring = arg
         elif opt in ("-i", "--ignore-case"):
              ignore_case = True
+        elif opt in ("-a", "--aws"):
+             search_aws = True
 
     #verify required parameters
     if s3_bucket_name == '' or substring == '':
         print (help_text)
         sys.exit(2)
     
-    #client using localstack
-    client = boto3.client("s3", endpoint_url=endpoint_url)
+    if (search_aws):
+        #client using AWS
+        client = boto3.client("s3")
+    else:
+        #client using localstack
+        client = boto3.client("s3", endpoint_url=endpoint_url)
     
     #list objects from s3 bucket / raise a error if bucket doesn't exist
     try:
