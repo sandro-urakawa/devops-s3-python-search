@@ -14,7 +14,7 @@ def main(argv):
                 -i | --ignore-case"""
 
     try:
-        opts, args = getopt.getopt(argv,"hib:s:",["s3_bucket_name=","substring="])
+        opts, args = getopt.getopt(argv,"hib:s:",["s3_bucket_name=","substring=","ignore-case"])
     except getopt.GetoptError:
         print(help_text)
         sys.exit(2)
