@@ -100,3 +100,33 @@ Line Number: 2
 Line: random
 ```
 
+# Additional features
+## Case insensitive search
+* Add `-i` parameter to script, example:
+```
+% python search-s3.py -b sample-bucket -s random -i        
+random string exists in dir1/file1.txt
+Line Number: 2
+Line: Random
+
+random string exists in dir1/file2.txt
+Line Number: 2
+Line: random
+
+random string exists in dir2/file1.txt
+Line Number: 2
+Line: Random
+
+random string exists in dir2/file2.txt
+Line Number: 2
+Line: random
+
+random string exists in file1.txt
+Line Number: 2
+Line: Random
+
+random string exists in file2.txt
+Line Number: 2
+Line: random
+```
+
