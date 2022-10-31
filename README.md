@@ -130,3 +130,85 @@ Line Number: 2
 Line: random
 ```
 
+## Using in AWS 
+### IAM User (Access Key and Secret)
+* Create an IAM user with `Programmatic access` to generate an Access Key and Secret
+* The policy for the user needs these permissions, change `sample-bucket-bru2pznp` with your bucket name:
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:PutBucketTagging",
+                "s3:PutBucketAcl",
+                "s3:CreateBucket",
+                "s3:DeleteObject",
+                "s3:GetBucketAcl",
+                "s3:DeleteBucketPolicy",
+                "s3:DeleteBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::sample-bucket-bru2pznp/*",
+                "arn:aws:s3:::sample-bucket-bru2pznp"
+            ]
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::sample-bucket-bru2pznp/*",
+                "arn:aws:s3:::sample-bucket-bru2pznp"
+            ]
+        }
+    ]
+}
+```
+
+### Install AWS CLI
+* https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+### Config AWS CLI
+```
+% aws configure  
+AWS Access Key ID [None]: XXXXXXXXXXXX
+AWS Secret Access Key [None]: XXXXXXXXXXXXXXXX
+Default region name [None]: eu-west-1
+Default output format [None]: json
+```
+
+### Populate AWS S3 with sample files
+**Note: change the bucket name in the variables.tf file, if an error occurs informing that this name is already in use.**
+```
+cd terraform-aws
+terraform init
+terraform apply
+...
+Enter a value: yes
+...
+```
+
+### Use the script with -a or --aws parameter
+* Example:
+
+```
+% python search-s3.py -b sample-bucket-bru2pznp -s random -a
+random string exists in dir1/file2.txt
+Line Number: 2
+Line: random
+
+random string exists in dir2/file2.txt
+Line Number: 2
+Line: random
+
+random string exists in file2.txt
+Line Number: 2
+Line: random
+```
